@@ -13,6 +13,12 @@
 
             google.script.run.withSuccessHandler(newValue => {doesThisWork = newValue.split("]"); list.innerHTML += "<li>" + "Data recieved" + "</li>";}).getRows();
       }
+
+      function changeThing()
+      {
+        var body = document.getElementById('headerText');
+        google.script.run.withSuccessHandler(newValue => {doesThisWork = newValue.split("]"); body.innerHTML = "Inventory Helper";}).getRows();
+      }
     async function onScan() 
     {
     var scannedInput = document.getElementById('scannerInput').value;
@@ -42,7 +48,7 @@
     var list = document.getElementById('scanlist');
     list.innerHTML += "<li>" + "fuckers" + "</li>"
   }
-  window.onload = getVariables;
+  window.onload = changeThing;
     // {
   //   new assetNum = google.script.run.withSuccessHandler(newValue => assetNum).getAssetNumber(scannedInput);
   //   return assetNum
@@ -60,7 +66,7 @@
   </head>
   <body>
     <header>
-        <h1>Inventory Helper</h1>
+        <h1 id="headerText">Loading Data...</h1>
     </header>
     <main>
         <section>
