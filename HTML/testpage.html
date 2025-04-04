@@ -53,6 +53,18 @@
       }
     });
   }
+
+  function testFunction()
+  {
+     var list = document.getElementById('scanlist');
+     inputValue = ""
+    google.script.run.withSuccessHandler(newValue => {someVal = newValue.split("]"); list.innerHTML += "<li>" + someVal[0] + "</li>";}).getRows();
+    splitValue = someVal.split("]");
+    // list.innerHTML += "<li>" + inputValue + "</li>";
+    
+
+
+  }
   // async function addAssetNumber(scannedInput)
   // {
   //   new assetNum = google.script.run.withSuccessHandler(newValue => assetNum).getAssetNumber(scannedInput);
@@ -80,7 +92,7 @@
                 <form id="assetForm">
                     <label for="scannerInput">Scan Tag</label>
                     <input type="text" id="scannerInput" name="scannerInput" placeholder="C0..">
-                    <button onClick="onScan()">Submit</button>
+                    <button onClick="testFunction()">Submit</button>
                 </form>
               </fieldset>
         </section>

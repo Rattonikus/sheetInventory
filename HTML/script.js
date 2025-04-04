@@ -16,4 +16,5 @@ function onScan() {
   function clearList() {
     var list = document.getElementById('scanlist');
     list.innerHTML = "";
+    
 }

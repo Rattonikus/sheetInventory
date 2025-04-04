@@ -3,6 +3,8 @@ function onOpen(name) {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Inventory Helper')
   .addItem('Open helper', 'menuitem')
+    .addItem('Open test helper', 'menuitem1')
+
   .addToUi();
 }
 
@@ -14,7 +16,64 @@ function menuitem() {
   .showSidebar(html)
 }
 
+function menuitem1() {
+  var html = HtmlService.createHtmlOutputFromFile('testPage')
+  .setTitle("Inventory Helper")
+  SpreadsheetApp.getUi()
+  .showSidebar(html)
+}
 
+function getRows() 
+{
+  var ss = SpreadsheetApp.getActiveSheet(); 
+  var sstring = ""
+  for (i = 1; i <= ss.getMaxColumns(); i++)
+  {
+    nextHasText = true;
+    sstring += "[";
+    if (ss.getRange(1, i).getValues().toString()!=='')
+    {
+      sstring += ss.getRange(1, i).getValues().toString();
+    }
+    if (ss.getRange(2, i).getValues().toString()!=='')
+    {
+      sstring += ",";
+    }
+    for (j = 1; nextHasText; j++) 
+    {
+
+      if (ss.getRange(j + 1, i).getValues().toString()=='')
+      {
+        nextHasText = false; 
+      }
+      else
+      {
+      sstring += ss.getRange(j + 1, i).getValues().toString();
+      sstring += ",";
+      sstring += j + "." + i; 
+      }
+      if (ss.getRange(j + 2, i).getValues().toString()!=='')
+      {
+        sstring += ",";
+      }
+      
+    }
+    sstring += "]"
+  }
+  return sstring;
+}
+
+function testLoop()
+{
+  var ss = SpreadsheetApp.getActiveSheet(); 
+  // var text = "LOCKED"
+  // var someVar = 0
+  // for (i = 0; i < ss.getMaxColumns(); i ++)
+  // {
+  //   someVar ++;
+  // }
+  return ss.getRange(1,1).getValues();
+}
 
 function getAssetNumber(asset) {
   var assetscanned = asset.toString();
@@ -23,17 +82,17 @@ function getAssetNumber(asset) {
   var assetRange = ss.createTextFinder(assetscanned).findNext(); 
   assetRange.setBackground('green')
   // find the range with the matching data 
-  var assetColumn = assetRange.getColumn() - 1;
-  var assetRow = assetRange.getRow(); 
+ // var assetColumn = assetRange.getColumn() - 1;
+  //var assetRow = assetRange.getRow(); 
   // Find the column next to the data, in this case the asset number 
-  var assetNumberRange = ss.getRange(assetRow, assetColumn);
+  //var assetNumberRange = ss.getRange(assetRow, assetColumn);
   //Gets the new range, which should select the asset number 
   //assetNumberRange.setBackground('blue');
   //assetRange.setBackground('red');
     // for debug purposes 
   //SpreadsheetApp.getUi().alert(assetNumberRange.getValues());
   // getValues returns the.. well value. Done uncomment unless you need to?? idk what im doing here im just winging it 
-  return assetNumberRange.getValues(); 
+  return ss.getRange(assetRange.getRow(), assetRange.getColumn() - 1).getValues(); 
 }
 
 function changeColor(asset) {
