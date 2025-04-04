@@ -6,6 +6,13 @@
     <base target="_top">
     <script>
 
+      var doesThisWork = ""
+      function getVariables()
+      {
+             var list = document.getElementById('scanlist');
+
+            google.script.run.withSuccessHandler(newValue => {doesThisWork = newValue.split("]"); list.innerHTML += "<li>" + "Data recieved" + "</li>";}).getRows();
+      }
     async function onScan() 
     {
     var scannedInput = document.getElementById('scannerInput').value;
@@ -25,48 +32,18 @@
     //Runs the get asset script with a success handler so that i can capture the return type. because .run returns NOTHING!!!!!
   }
 
-  function resolveAfter2Seconds(scannedInput) 
+  function otherTest()
   {
-    return new Promise((resolve) => 
-    {
-      
-      setTimeout(() => 
-      {
-        google.script.run.withSuccessHandler(newValue => resolve(newValue)).getAssetNumber(scannedInput);
-        // resolve("resolved");
-      }, 2000);
-  });
-}
-
-  function testFunc(scannedInput)
-  {
-    return new Promise((resolve, reject) => { 
-      var isTrue = true; 
-      if (isTrue)
-      {
-        resolve(assetNum);
-        // google.script.run.withSuccessHandler(newValue => resolve(newValue)).getAssetNumber(scannedInput);
-      }
-      else
-      {
-        reject("no");
-      }
-    });
+    var list = document.getElementById('scanlist');
+    list.innerHTML += "<li>" + doesThisWork[0] + "</li>"
   }
-
-  function testFunction()
+    function otherTestt()
   {
-     var list = document.getElementById('scanlist');
-     inputValue = ""
-    google.script.run.withSuccessHandler(newValue => {someVal = newValue.split("]"); list.innerHTML += "<li>" + someVal[0] + "</li>";}).getRows();
-    splitValue = someVal.split("]");
-    // list.innerHTML += "<li>" + inputValue + "</li>";
-    
-
-
+    var list = document.getElementById('scanlist');
+    list.innerHTML += "<li>" + "fuckers" + "</li>"
   }
-  // async function addAssetNumber(scannedInput)
-  // {
+  window.onload = getVariables;
+    // {
   //   new assetNum = google.script.run.withSuccessHandler(newValue => assetNum).getAssetNumber(scannedInput);
   //   return assetNum
   //   // var asset = document.getElementById(scannedInput);
@@ -77,7 +54,7 @@
 
   function clearList() {
     var list = document.getElementById('scanlist');
-    list.innerHTML = "";
+    list.innerHTML = ""
 }
   </script>
   </head>
@@ -92,7 +69,9 @@
                 <form id="assetForm">
                     <label for="scannerInput">Scan Tag</label>
                     <input type="text" id="scannerInput" name="scannerInput" placeholder="C0..">
-                    <button onClick="testFunction()">Submit</button>
+                    <button onClick="otherTest()">Submit</button>
+                    <button onClick="getVariables()">Submit</button>
+
                 </form>
               </fieldset>
         </section>
